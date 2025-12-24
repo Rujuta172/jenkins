@@ -1,0 +1,27 @@
+pipeline {
+    agent any 
+     stages  {
+        stage ('stage-1-pullcode') {
+            steps {
+               git 'https://github.com/Rujuta172/jenkins.git'
+            }
+        }
+        stage ('stage-2-buildcode') {
+            steps {
+                echo'buildcode success'
+            }
+        }
+        stage ('stage-3-testcode') {
+            steps {
+                echo'testcode success'
+            }
+        }
+        stage ('stage-4-deploycode') {
+            steps {
+                echo'deploycode success'
+            }
+        }
+        
+     }
+
+}
