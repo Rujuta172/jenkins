@@ -5,20 +5,23 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'GitHub repository connected!'
+                echo 'Checking out code from GitHub'
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Build stage successful'
+                echo 'Building Python application'
+                sh 'python3 --version'
+                sh 'python3 -m py_compile app.py test_app.py'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Test stage successful'
+                echo 'Running automated tests'
+                sh 'python3 -m unittest -v test_app'
             }
         }
     }
