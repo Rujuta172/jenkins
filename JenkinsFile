@@ -24,11 +24,25 @@ pipeline {
                 sh 'python3 -m unittest -v test_app'
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                echo 'Building Docker image'
+                sh 'docker build -t python-app:latest .'
+            }
+        }
+
+        stage('Docker Test') {
+            steps {
+                echo 'Testing application inside Docker'
+                sh 'docker run --rm python-app:latest'
+            }
+        }
     }
 
     post {
         success {
-            echo 'CI pipeline completed successfully!'
+            echo 'CI/CD pipeline completed successfully!'
         }
         failure {
             echo 'Pipeline failed. Check the console output.'
