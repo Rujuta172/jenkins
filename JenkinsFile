@@ -34,14 +34,12 @@ pipeline {
 
         stage('Docker Test') {
             steps {
-                echo 'Running unit tests inside Docker'
+                echo 'Testing inside Docker'
                 sh 'docker run --rm python-app:latest python3 -m unittest -v test_app'
-
-                echo 'Running Python application inside Docker'
                 sh 'docker run --rm python-app:latest'
             }
         }
-    }
+
         stage('Deploy') {
             steps {
                 echo 'Deploying Python application'
@@ -50,16 +48,15 @@ pipeline {
                 sh 'docker exec python-app python3 app.py'
             }
         }
+    }
 
     post {
         success {
-            echo 'SUCCESS: CI pipeline completed!'
+            echo 'SUCCESS: CI/CD pipeline completed!'
         }
-
         failure {
-            echo 'FAILURE: Check the Console Output for errors.'
+            echo 'FAILURE: Check Console Output for errors.'
         }
-
         always {
             echo 'Pipeline execution finished.'
         }
